@@ -9,11 +9,17 @@ const taskFormHandler = function (event) {
     "select[name='task-type']"
   ).value;
 
+  if (!taskNameInput || !taskTypeInput) {
+    alert("You need to fill out the task form!");
+    return false;
+  }
+
   const taskDataObj = {
     name: taskNameInput,
     type: taskTypeInput,
   };
   createTaskEl(taskDataObj);
+  formEl.reset();
 };
 
 const createTaskEl = function (taskDataObj) {
