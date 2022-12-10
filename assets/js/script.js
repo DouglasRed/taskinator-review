@@ -94,6 +94,9 @@ const taskButtonHandler = function (event) {
   if (event.target.matches(".delete-btn")) {
     let taskId = event.target.getAttribute("data-task-id");
     deleteTask(taskId);
+  } else if (event.target.matches(".edit-btn")) {
+    let taskId = event.target.getAttribute("data-task-id");
+    editTask(taskId);
   }
 };
 
@@ -102,6 +105,22 @@ const deleteTask = function (taskId) {
     ".task-item[data-task-id='" + taskId + "']"
   );
   taskSelected.remove();
+};
+
+const editTask = function (taskId) {
+  const taskSelected = document.querySelector(
+    ".task-item[data-task-id='" + taskId + "']"
+  );
+
+  const taskName = taskSelected.querySelector("h3.task-name").textContent;
+  console.log(taskName);
+
+  const taskType = taskSelected.querySelector("span.task-type").textContent;
+
+  document.querySelector("input[name='task-name']").value = taskName;
+  document.querySelector("select[name='task-type']").value = taskType;
+  document.querySelector("#save-task").textContent = "Save Task";
+  formEl.setAttribute("data-task-id", taskId);
 };
 
 formEl.addEventListener("submit", taskFormHandler);
